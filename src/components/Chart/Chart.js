@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { mockHistoricalData } from "../../constant/mock";
 import { convertUnixTimeStamptoDate } from "../../helpers/date-helpers";
 import {
@@ -12,6 +12,7 @@ import {
 import Card from "../card/Card";
 import ChartFilter from "./ChartFilter";
 import { chartConfig } from "../../constant/config";
+import { fetchCandleData } from "../../api/stock-api";
 
 const Chart = ({ darkMode }) => {
   const [data, setData] = useState(mockHistoricalData);
@@ -25,6 +26,14 @@ const Chart = ({ darkMode }) => {
       };
     });
   };
+
+  useEffect(() => {
+    const updateHistoricalData = async () => {
+      const result = await fetchCandleData();
+      console.log("Testing in for historical dat",result)
+    };
+    updateHistoricalData()
+  },[]);
 
   return (
     <Card>

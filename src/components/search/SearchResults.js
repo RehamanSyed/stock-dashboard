@@ -9,7 +9,7 @@ const SearchResults = ({ results }) => {
         return (
           <li
             key={idx}
-            className="cursor-pointer p-4 m-2 flex justify-between items-center rounded-md hover:bg-gray-100"
+            className="cursor-pointer text-xs p-4 m-2 flex justify-between items-center rounded-md hover:bg-gray-100"
             onClick={() => {
               setStockSymbol(item.symbol);
             }}

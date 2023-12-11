@@ -15,7 +15,7 @@ const Dashboard = () => {
   useEffect(() => {
     const updateStockDetails = async () => {
       try {
-        const result = fetchStockDetails(stockSymbol);
+        const result = await fetchStockDetails(stockSymbol);
         setStockDetails(result);
       } catch (err) {
         setStockDetails({});
@@ -24,8 +24,9 @@ const Dashboard = () => {
     };
     const updateStockOverview = async () => {
       try {
-        const result = fetchQoute(stockSymbol);
-        setStockDetails(result);
+        const result = await fetchQoute(stockSymbol);
+        console.log("Result of over",result)
+        setQoute(result);
       } catch (err) {
         setQoute({});
         console.log(err);
@@ -33,6 +34,8 @@ const Dashboard = () => {
     };
     updateStockDetails();
     updateStockOverview();
+    console.log("Qoute",qoute)
+
   }, [stockSymbol]);
   return (
     <div

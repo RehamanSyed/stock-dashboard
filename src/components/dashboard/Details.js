@@ -4,7 +4,7 @@ import ThemeContext from "../../context/ThemeContext";
 
 const Details = ({ details }) => {
   const { darkMode } = useContext(ThemeContext);
-  console.log("details ==?", details);
+  // console.log("details ==?", details);
   const detailsList = {
     name: "Name",
     country: "Country",
@@ -15,7 +15,7 @@ const Details = ({ details }) => {
     finnhubIndustry: "Industry",
   };
   const convertMillionToBillion = (num) => {
-    console.log(num);
+    // console.log(num);
     return (num / 1000).toFixed(2);
   };
   return (
