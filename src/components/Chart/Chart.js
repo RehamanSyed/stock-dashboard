@@ -1,6 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { mockHistoricalData } from "../../constant/mock";
-import { convertUnixTimeStamptoDate } from "../../helpers/date-helpers";
+import React, { useContext, useEffect, useState } from "react";
+
+import {
+  convertDateToUnixTimeStamp,
+  convertUnixTimeStamptoDate,
+  createDate,
+} from "../../helpers/date-helpers";
 import {
   Area,
   AreaChart,
@@ -13,12 +17,15 @@ import Card from "../card/Card";
 import ChartFilter from "./ChartFilter";
 import { chartConfig } from "../../constant/config";
 import { fetchCandleData } from "../../api/stock-api";
+import StockContext from "../../context/StockContext";
+import { mockHistoricalData } from "../../constant/mock";
 
 const Chart = ({ darkMode }) => {
   const [data, setData] = useState(mockHistoricalData);
+  const { stockSymbol } = useContext(StockContext);
   const [filter, setFilter] = useState("1W");
 
-  const formatData = () => {
+  const formatData = (data) => {
     return data.c.map((item, index) => {
       return {
         value: item.toFixed(2),
@@ -27,13 +34,36 @@ const Chart = ({ darkMode }) => {
     });
   };
 
-  useEffect(() => {
-    const updateHistoricalData = async () => {
-      const result = await fetchCandleData();
-      console.log("Testing in for historical dat",result)
-    };
-    updateHistoricalData()
-  },[]);
+  // useEffect(() => {
+  //   const getDateRange = () => {
+  //     const { days, weeks, months, years } = chartConfig[filter];
+  //     const endDate = new Date();
+  //     const startDate = createDate(endDate, -days, -weeks, -months, -years);
+  //     const startTimestampUnix = convertDateToUnixTimeStamp(startDate);
+  //     const endTimestampUnix = convertDateToUnixTimeStamp(endDate);
+  //     return { startTimestampUnix, endTimestampUnix };
+  //   };
+
+  //   const updateChartData = async () => {
+  //     try {
+  //       const { startTimestampUnix, endTimestampUnix } = getDateRange();
+  //       const resolution = chartConfig[filter].resolution;
+
+  //       const result = await fetchCandleData(
+  //         stockSymbol,
+  //         resolution,
+  //         startTimestampUnix,
+  //         endTimestampUnix
+  //       );
+  //       setData(formatData(result));
+  //       console.log("Testing in for historical dat", result);
+  //     } catch (error) {
+  //       setData([]);
+  //       console.log(error);
+  //     }
+  //   };
+  //   updateChartData();
+  // }, [stockSymbol, filter]);
 
   return (
     <Card>

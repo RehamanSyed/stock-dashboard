@@ -25,7 +25,6 @@ const Dashboard = () => {
     const updateStockOverview = async () => {
       try {
         const result = await fetchQoute(stockSymbol);
-        console.log("Result of over",result)
         setQoute(result);
       } catch (err) {
         setQoute({});
@@ -34,8 +33,6 @@ const Dashboard = () => {
     };
     updateStockDetails();
     updateStockOverview();
-    console.log("Qoute",qoute)
-
   }, [stockSymbol]);
   return (
     <div
